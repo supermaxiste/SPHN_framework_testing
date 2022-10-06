@@ -39,4 +39,4 @@ To end this section, I'd like to highlight some important challenges to keep in 
  - Familiarize yourself with the reference framework (in this case the SPHN one)
  - Make sure to generate semantic data with all of the relationships needed (define terms AND ALL of their connections)
 
-[The simple schema I chose](simple_schema.png "The simple schema I chose")
+![The simple schema I chose](simple_schema.png "The simple schema I chose")
