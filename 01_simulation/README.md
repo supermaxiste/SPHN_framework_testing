@@ -1,6 +1,24 @@
 ## Simulation
 
-The patient simulator Synthea offers A LOT of different options, but for this specific task there was no need to dig too deep into them, since the goal is to obtain some data to play with. There were two main aspects taken into account:
+
+### Synthea run
+
+To run the simulation, simply use the following command:
+
+```
+sh patient_simulation.sh
+```
+
+This will download `Synthea`, run a simulation generating synthetic clinical data for 100 live patient in `JSON` format (in an `output` folder), remove the tool and remove `JSON` files not related to the patients. For details on the simulation and its parameters, find information in the next sections. 
+
+The structure of the `output` is as follows:
+
+ - `metadata` is a folder including an individual `JSON` file with all the parameters related to the simulation
+ - `fhir` is a folder with one `JSON` file for each patient that includes the clinical data we're looking for
+
+### Simulation details
+
+The patient simulator `Synthea` offers A LOT of different options, but for this specific task there was no need to dig too deep into them, since the goal is to obtain some data to play with. There were two main aspects taken into account:
 
  - The number of patients
  - The output file format
