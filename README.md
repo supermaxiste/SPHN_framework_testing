@@ -16,11 +16,11 @@ A big challenge in the Swiss health system is to combine the large variety of so
 
 ## Structure of the repo
 
-Three main folders will include code for each one of the steps outlined above. All versions of the tools used will be documented or made available in a `yaml` file to be used with `conda`. GitHub actions will be setup to make sure that whole pipeline can run on the specified OS. Below you will find a summary for each step and more details can be found in the `README` of the respective folder.
+Three main folders will include code for each one of the steps outlined above. All versions of the tools used will be documented or made available in a `yaml` file to be used with `conda`. GitHub actions will be setup to make sure that whole pipeline can run smoothly. Below you will find a summary for each step and more details can be found in the `README` of the respective folder.
 
 ## Generating synthetic data
 
-I simulated data for 135 patients aged between 20 and 90 years and the biggest question about this simulation was the output format of patient files. Many standards exist and I was not sure which one would be the most ideal pick to semantize. The final choice was `JSON` format, thinking that the format might be more human readable than others. 
+I simulated data for 100 patients aged between 20 and 90 years and the biggest question about this simulation was the output format of patient files. Many standards exist and I was not sure which one would be the most ideal pick to semantize. The final choice was `JSON` format, thinking that the format might be more human readable than others. 
 
 ## Semantize simulated data
 

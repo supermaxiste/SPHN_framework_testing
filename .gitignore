@@ -1,13 +1,13 @@
 # Ignore patient data and Synthea
 
-01_simulation/*json
-01_simulation/synthea-with-dependiencies.jar
+01_simulation/output/fhir/*json
+01_simulation/output/metadata/*json
+01_simulation/synthea-with-dependencies.jar
 
 # Ignore temporary files from the validation step
 
 03_validation/tmp/
 
 # Ignore all python notebook checkpoints for validation and query
-
-02_semantization/.ipynb_checkpoints/
-04_query/.ipynb_checkpoints/
+.ipynb_checkpoints
+*/.ipynb_checkpoints/
