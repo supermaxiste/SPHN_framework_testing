@@ -1,0 +1,4 @@
+PREFIX sphn: <https://biomedit.ch/rdf/sphn-ontology/sphn#>
+
+SELECT (count(distinct ?provider) as ?nbProviders)
+WHERE { ?s sphn:hasDataProviderInstitute ?provider . }

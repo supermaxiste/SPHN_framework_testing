@@ -1,0 +1,1401 @@
+@prefix dash:    <http://datashapes.org/dash#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema:  <http://schema.org/> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix sphn:    <http://sphn.ch/rdf/ontology/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+
+sphn:
+    rdf:type       owl:Ontology ;
+    owl:versionIRI sphn:2020.1.2 ;
+    rdfs:comment   "SPHN Official SHACL" .
+
+schema:UnitShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Unit ;
+    sh:pattern           "(Unit-)[\\w\\d\\-]*" ;
+    sh:property          [ sh:path     sphn:A100-Unit-value ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 100 ; ] .
+
+schema:CodeShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Code ;
+    sh:pattern           "(Code-)[\\w\\d\\-]*" ;
+    sh:property          [ sh:path     sphn:A102-Code-identifier ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A103-Code-code_name ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 100 ; ] ;
+    sh:property          [ sh:path     sphn:A104-Code-coding_system_and_version ;
+                           sh:datatype xsd:string ;
+                           sh:pattern
+                                       "(LOINC_20[0-2][0-9]_1|CHOP_20[0-2][0-9]|GTIN_20[0-2][0-9]_1|ATC_20[0-2][0-9]_01|ICD-10_GM_20[0-2][0-9]|ICD-O-3|NANDA_20[0-2][0-9]|UCUM_2\\.1_20[0-2][0-9]|UID_12\\.09\\.20[0-2][0-9]|SNOMED_Spring_20[0-2][0-9]|ICPC-2_20[0-2][0-9]|Internal)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     owl:sameAs ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:RateShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Rate ;
+    sh:pattern           "(Rate-)[\\w\\d\\-]*" ;
+    sh:property          [ sh:path     sphn:A106-Rate-events ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A100-Rate-unit ;
+                           sh:class    sphn:Unit ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:MeasurementMethodShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:MeasurementMethod ;
+    sh:pattern           "(MeasurementMethod-)[\\w\\d\\-]*" ;
+    sh:property          [ sh:path     sphn:A107-MeasurementMethod-value ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:BodySiteShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:BodySite ;
+    sh:pattern           "(BodySite-)[\\w\\d\\-]*" ;
+    sh:property          [ sh:path     sphn:A108-BodySite-value ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:DataProviderInstituteShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:DataProviderInstitute ;
+    sh:pattern           "(DataProviderInstitute-)[\\w\\d\\-]*" ;
+    sh:property          [ sh:path     sphn:A109-DataProviderInstitute-value ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(CHE_108_907_884|CHE_229_707_417|CHE_108_910_225|CHE_158_207_524|CHE_108_904_325)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:SubjectPseudoIdentifierShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:SubjectPseudoIdentifier ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A110-SubjectPseudoIdentifier-value ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:TherapeuticAreaShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:TherapeuticArea ;
+    sh:pattern           "(TherapeuticArea-)[\\w\\d\\-]*" ;
+    sh:property          [ sh:path     sphn:A253-TherapeuticArea-value ;
+                           sh:datatype xsd:string ;
+                           sh:pattern
+                                       "(General\\ medicine|Surgery|Gynaecology\\ and\\ obstetrics|Cardiac\\ and\\ thoracic\\ vascular\\ surgery|Internal\\ medicine|Paediatrics|Ophthalmology|Otorhinolaryngology|Pathology|Orthodontics|Chiropractic\\ specialist|Anaesthesiology|Neurosurgery|Neurology|Orthopaedic\\ surgery\\ and\\ traumatology\\ of\\ the\\ locomotor\\ apparatus|Pneumology|Psychiatry\\ and\\ psychotherapy|Urology|Allergology\\ and\\ clinical\\ immunology|Occupational\\ medicine|Dermatology\\ and\\ venereology|Endocrinology\\ –\\ Diabetology|Gastroenterology|Haematology|Cardiology|Oral\\ and\\ maxillofacial\\ surgery|Child\\ and\\ adolescent\\ psychiatry\\ and\\ psychotherapy|Paediatric\\ surgery|Clinical\\ pharmacology\\ and\\ toxicology|Radiology|Nuclear\\ medicine|Radio-oncology\\ /\\ radiotherapy|Nephrology|Physical\\ medicine\\ and\\ rehabilitation|Plastic,\\ reconstructive\\ and\\ aesthetic\\ surgery|Prevention\\ and\\ public\\ health|Rheumatology|Tropical\\ and\\ travel\\ medicine|Infectology|General\\ medical\\ practitioner|Angiology|Intensive\\ care\\ medicine|Medical\\ genetics|Medical\\ oncology|Pharmaceutical\\ medicine|Forensic\\ medicine|Oral\\ surgery|Periodontics|Reconstructive\\ dentistry|Other|General\\ internal\\ medicine|Community\\ pharmacy|Hospital\\ pharmacy|Psychotherapy|Child\\ and\\ adolescent\\ psychology|Clinical\\ Psychology|Neuropsychology|Health\\ Psychology|Hand\\ surgery|Vascular\\ surgery|Thoracic\\ surgery)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:LocationShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Location ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A113-Location-class ;
+                           sh:datatype xsd:string ;
+                           sh:pattern
+                                       "(Diagnostic\\ institution|Accident\\ and\\ Emergency\\ department|Health\\ Authority|Private\\ home-based\\ care|Hospital|Military\\ health\\ institution|Prison\\ based\\ care\\ site|Nursing\\ home|Pharmacy|Ambulatory\\ care\\ site|Rehabilitation\\ hospital|Client's\\ or\\ patient's\\ home|Medical\\ center|General\\ practice\\ premises|Site\\ of\\ care)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A114-Location-exact ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:CareHandlingTypeShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:CareHandlingType ;
+    sh:pattern           "(CareHandlingType-)[\\w\\d\\-]*" ;
+    sh:property          [ sh:path     sphn:A254-CareHandlingType-value ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(inpatient|outpatient|unknown)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:EncounterShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Encounter ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A117-Encounter-encounter_id ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A118-Encounter-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A112-Encounter-source_location ;
+                           sh:class    sphn:Location ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A112-Encounter-current_location ;
+                           sh:class    sphn:Location ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A253-Encounter-therapeutic_area ;
+                           sh:class    sphn:TherapeuticArea ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A254-Encounter-type ;
+                           sh:class    sphn:CareHandlingType ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:ConsentShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Consent ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A120-Consent-type ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(specific\\ consent|general\\ consent|waiver)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A121-Consent-consent_id ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A122-Consent-status ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(accepted|refused|unknown|informed)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A123-Consent-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:BirthDatetimeShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:BirthDatetime ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A124-BirthDatetime-value ;
+                           sh:or       ( [ sh:datatype xsd:dateTime ]
+                                         [ sh:datatype xsd:gYear ] ) ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:DeathStatusShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:DeathStatus ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A126-DeathStatus-status ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(death|unknown)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A127-DeathStatus-datetime ;
+                           sh:or       ( [ sh:datatype xsd:dateTime ]
+                                         [ sh:datatype xsd:gYear ] ) ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:AdministrativeGenderShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:AdministrativeGender ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A129-AdministrativeGender-gender ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(male|female|other|unknown)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A130-AdministrativeGender-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:CivilStatusShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:CivilStatus ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A132-CivilStatus-status ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(single|married|widowed|divorced|unmarried|in\\ a\\ registered\\ partnership|partnership\\ dissolved|no\\ indication)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A133-CivilStatus-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:HeartRateShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:HeartRate ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A105-HeartRate-rate ;
+                           sh:class    sphn:Rate ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A135-HeartRate-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A108-HeartRate-body_site ;
+                           sh:class    sphn:BodySite ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A107-HeartRate-method ;
+                           sh:class    sphn:MeasurementMethod ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A136-HeartRate-physiologic_state ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "SNOMED\\ CT\\ code\\ child\\ of\\ :\\ 128973006" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A137-HeartRate-regularity ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(regular|irregular|unknown)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:SystemicArterialBloodPressureShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:SystemicArterialBloodPressure ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A139-SystemicArterialBloodPressure-systolic_pressure ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A140-SystemicArterialBloodPressure-diastolic_pressure ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A141-SystemicArterialBloodPressure-mean_pressure ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A142-SystemicArterialBloodPressure-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A108-SystemicArterialBloodPressure-body_site ;
+                           sh:class    sphn:BodySite ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A107-SystemicArterialBloodPressure-method ;
+                           sh:class    sphn:MeasurementMethod ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A100-SystemicArterialBloodPressure-unit ;
+                           sh:class    sphn:Unit ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:TemperatureShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Temperature ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A144-Temperature-temperature ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A145-Temperature-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A108-Temperature-body_site ;
+                           sh:class    sphn:BodySite ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A100-Temperature-unit ;
+                           sh:class    sphn:Unit ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:RespiratoryRateShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:RespiratoryRate ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A105-RespiratoryRate-rate ;
+                           sh:class    sphn:Rate ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A147-RespiratoryRate-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:OxygenSaturationShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:OxygenSaturation ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A149-OxygenSaturation-saturation ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A150-OxygenSaturation-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A108-OxygenSaturation-body_site ;
+                           sh:class    sphn:BodySite ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A107-OxygenSaturation-method ;
+                           sh:class    sphn:MeasurementMethod ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:HeightShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Height ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A152-Height-height ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A153-Height-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A100-Height-unit ;
+                           sh:class    sphn:Unit ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:WeightShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Weight ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A155-Weight-weight ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A156-Weight-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A100-Weight-unit ;
+                           sh:class    sphn:Unit ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:CircumferenceMeasureShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:CircumferenceMeasure ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A108-CircumferenceMeasure-body_site ;
+                           sh:class    sphn:BodySite ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A251-CircumferenceMeasure-circumference ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A252-CircumferenceMeasure-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A100-CircumferenceMeasure-unit ;
+                           sh:class    sphn:Unit ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:ProblemConditionShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:ProblemCondition ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A160-ProblemCondition-value ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:CodedProblemConditionShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:CodedProblemCondition ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A162-CodedProblemCondition-problem ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-CodedProblemCondition-code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A164-CodedProblemCondition-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:CodedNursingDiagnosisShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:CodedNursingDiagnosis ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-CodedNursingDiagnosis-code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A167-CodedNursingDiagnosis-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:FophDiagnosisShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:FophDiagnosis ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-FophDiagnosis-code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A170-FophDiagnosis-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A171-FophDiagnosis-diagnosis_rank ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(principal|secondary|complementary)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:FophProcedureShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:FophProcedure ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-FophProcedure-code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A174-FophProcedure-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A175-FophProcedure-procedure_rank ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(principal|supplementary)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:SimpleScoreShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:SimpleScore ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A177-SimpleScore-score ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A178-SimpleScore-scoring_system ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A178-SimpleScore-scoring_system ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A179-SimpleScore-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:BiosampleShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Biosample ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A108-Biosample-body_site ;
+                           sh:class    sphn:BodySite ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A181-Biosample-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A182-Biosample-material ;
+                           sh:datatype xsd:string ;
+                           sh:pattern
+                                       "(Ascites\\ fluid|Amniotic\\ fluid|Bronchoalveolar\\ lavage|Blood\\ \\(whole\\)|Bone\\ marrow\\ aspirate|Breast\\ milk|Buccal\\ cells|Non-density-gradient-centrifugation-separated\\ buffy\\ coat,\\ viable|Non-density-gradient-centrifugation-separated\\ buffy\\ coat,\\ non-viable|Density-gradient-centrifugation-separated\\ mononuclear\\ cells,\\ viable|Fresh\\ cells\\ from\\ non-blood\\ specimen\\ type|Cells\\ from\\ non\\ blood\\ specimen\\ type\\(e\\.g\\.\\ ascites,\\ amniotic\\),\\ viable|Cord\\ blood|Cerebrospinal\\ fluid|Enriched\\ \\(physicochemically\\)\\ Circulating\\ Tumor\\ Cells|Dental\\ pulp|Dried\\ whole\\ blood\\ \\(e\\.g\\.\\ Guthrie\\ cards\\)|Nasal\\ washing|Density-gradient-centrifugation-separated\\ mononuclear\\ cells,\\ non\\ viable|Cells\\ from\\ non\\ blood\\ specimen\\ type\\ \\(e\\.g\\.\\ ascites,\\ amniotic\\),\\ non-viable|Pleural\\ fluid|Plasma,\\ single\\ spun|Plasma,\\ double\\ spun|Red\\ blood\\ cells|Saliva|Semen|Serum|Sputum|Stool|Synovial\\ fluid|Tears|24\\ h\\ urine|Urine,\\ random\\ \\(“spot”\\)|Urine,\\ first\\ morning|Urine,\\ timed|Bone|Cells\\ from\\ fine\\ needle\\ aspirate|Cells\\ from\\ laser\\ capture\\ microdissected\\ tissue\\ |Cells\\ from\\ non-blood\\ specimen\\ type\\ \\(e\\.g\\.\\ dissociated\\ tissue\\),\\ non-viable|Cells\\ from\\ non-blood\\ specimen\\ type\\ \\(e\\.g\\.\\ dissociated\\ tissue\\),\\ viable|Disrupted\\ tissue,\\ non-viable|DNA|Fresh\\ cells\\ from\\ non-blood\\ specimen\\ type\\ \\(e\\.g\\.\\ biopsy\\)|Hair|Nails|Placenta|RNA|Solid\\ tissue|Teeth|Other)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:BiobanksampleShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Biobanksample ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A184-Biobanksample-sample_id ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A180-Biobanksample-biosample ;
+                           sh:class    sphn:Biosample ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:LabResultShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:LabResult ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A186-LabResult-unstructured_lab_result ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-LabResult-structured_lab_result ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A180-LabResult-biosample ;
+                           sh:class    sphn:Biosample ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A188-LabResult-analysis_datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A189-LabResult-value ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A100-LabResult-unit ;
+                           sh:class    sphn:Unit ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A190-LabResult-normal_range ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:CatheterShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Catheter ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A192-Catheter-catheter_type ;
+                           sh:datatype xsd:string ;
+                           sh:pattern
+                                       "(arterial\\ catheter|central\\ venous\\ line|picc\\ line|indwelling\\ urinary\\ tract\\ catheter|external\\ urinary\\ tract\\ catheter|short-term\\ urinary\\ tract\\ catheter)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A108-Catheter-insertion_point ;
+                           sh:class    sphn:BodySite ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A108-Catheter-location ;
+                           sh:class    sphn:BodySite ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A193-Catheter-insertion_datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A194-Catheter-removal_datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:TimePatternTypeShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:TimePatternType ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A195-TimePatternType-value ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(continuous|intermittent|not\\ applicable)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:FrequencyShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Frequency ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A197-Frequency-events ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A100-Frequency-unit ;
+                           sh:class    sphn:Unit ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:DurationShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Duration ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A199-Duration-value ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A100-Duration-unit ;
+                           sh:class    sphn:Unit ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:SubstanceAmountShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:SubstanceAmount ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 10 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A201-SubstanceAmount-amount ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A100-SubstanceAmount-unit ;
+                           sh:class    sphn:Unit ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:DrugShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:Drug ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 0 ;
+                           sh:maxCount 100 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-Drug-drug_code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-Drug-alternate_drug_code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:DrugAdministrationEventShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:DrugAdministrationEvent ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A202-DrugAdministrationEvent-drug ;
+                           sh:class    sphn:Drug ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A195-DrugAdministrationEvent-time_pattern_type ;
+                           sh:class    sphn:TimePatternType ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A200-DrugAdministrationEvent-quantity ;
+                           sh:class    sphn:SubstanceAmount ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A198-DrugAdministrationEvent-duration ;
+                           sh:class    sphn:Duration ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A206-DrugAdministrationEvent-administration_event_start_time ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A207-DrugAdministrationEvent-administration_event_end_time ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A208-DrugAdministrationEvent-administration_route ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A209-DrugAdministrationEvent-galenic ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A210-DrugAdministrationEvent-reason_to_stop_drug ;
+                           sh:datatype xsd:string ;
+                           sh:pattern
+                                       "(FOPH\\ diagnosis|toxicity|cost|disease\\ progression|End\\ of\\ planned\\ therapy|no\\ noticeable\\ improvement|cytogenetic\\ resistance|comorbidity|patient\\ choice|death|lost\\ to\\ follow-Up|other|Unknown)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:DrugPrescriptionShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:DrugPrescription ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A202-DrugPrescription-drug ;
+                           sh:class    sphn:Drug ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A195-DrugPrescription-time_pattern_type ;
+                           sh:class    sphn:TimePatternType ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A200-DrugPrescription-quantity ;
+                           sh:class    sphn:SubstanceAmount ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A196-DrugPrescription-frequency ;
+                           sh:class    sphn:Frequency ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A212-DrugPrescription-first_administration_date_time ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A213-DrugPrescription-last_administration_date_time ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-DrugPrescription-administration_route ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-DrugPrescription-galenic ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A216-DrugPrescription-indication_to_start_drug ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(FOPH\\ diagnosis|curative|palliative|neoadjuvant|adjuvant|other|Unknown)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:DrugAllergyShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:DrugAllergy ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 0 ;
+                           sh:maxCount 100 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A202-DrugAllergy-drug ;
+                           sh:class    sphn:Drug ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A218-DrugAllergy-observation_datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A219-DrugAllergy-allergy_type ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:NonDrugAllergyIntoleranceShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:NonDrugAllergyIntolerance ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A221-NonDrugAllergyIntolerance-allergy_type ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(intolerance|allergy|unknown)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A222-NonDrugAllergyIntolerance-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A223-NonDrugAllergyIntolerance-causative_agent ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:TnmClassificationShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:TnmClassification ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-TnmClassification-code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A226-TnmClassification-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:TumorStageShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:TumorStage ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-TumorStage-code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A229-TumorStage-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:TumorGradeShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:TumorGrade ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-TumorGrade-code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A232-TumorGrade-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:IcdODiagnosisShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:IcdODiagnosis ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-IcdODiagnosis-topography_code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A101-IcdODiagnosis-morphology_code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A236-IcdODiagnosis-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:RadiotherapyProcedureShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:RadiotherapyProcedure ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A238-RadiotherapyProcedure-code ;
+                           sh:datatype xsd:string ;
+                           sh:pattern
+                                       "(external\\ radiotherapy\\ \\(photons,\\ protons\\ or\\ electrons\\)|radiosurgery\\ \\(cyberKnife-gammaKnife\\)|stereotactic\\ radiotherapy|brachytherapy|systemic\\ radionuclide\\ therapy|intraoperative\\ radiotherapy|radiotherapy\\ with\\ hyperthermia|other)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A239-RadiotherapyProcedure-start_time ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A240-RadiotherapyProcedure-end_time ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A108-RadiotherapyProcedure-target_body_site ;
+                           sh:class    sphn:BodySite ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A241-RadiotherapyProcedure-fractions_number ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A242-RadiotherapyProcedure-radiation_amount ;
+                           sh:datatype xsd:double ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A100-RadiotherapyProcedure-unit ;
+                           sh:class    sphn:Unit ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A243-RadiotherapyProcedure-radiotherapy_intent ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(curative|palliative|unknown)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:OncologyTreatmentAssessmentShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:OncologyTreatmentAssessment ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A245-OncologyTreatmentAssessment-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A246-OncologyTreatmentAssessment-method ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(MRI|CT\\ scan|PET\\ CT)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A247-OncologyTreatmentAssessment-criteria ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(RECIST\\ 1\\.0|RECIST\\ 1\\.1|traceable\\ author\\ statement)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A248-OncologyTreatmentAssessment-result ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(complete\\ response|partial\\ response|stable\\ disease|progressive\\ disease|unknown)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A249-OncologyTreatmentAssessment-progression_type ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(localized|regional|metastatic|biochemical|unknown)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:A108-OncologyTreatmentAssessment-progression_site ;
+                           sh:class    sphn:BodySite ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .

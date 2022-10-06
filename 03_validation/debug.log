@@ -1,0 +1,187 @@
+Files ../02_semantization/output/null*.ttl do not load: ../02_semantization/output/null
+Files data/test_data*.ttl do not load: data/test_data
+Files queries/queries2022/null*.rq do not load: queries/queries2022/null
+Files shapes/shapes2022*.ttl do not load: shapes/shapes2022
+Files shapes/shapes2022/null*.ttl do not load: shapes/shapes2022/null
+Reading 8 QC queries queries/queries2022
+Starting at 06.10.2022 17:37:47
+Reading ontology from 1
+Adding ../02_semantization/output/sphn_ontology_extended.ttl > 272Kb
+Reading resources from 0
+Mode: LOCAL
+Creating a model 
+Read in total (with ontology) 8877 triples in 2835 ms
+Running QC queries ... 
+
+Executing queries/queries2022/QC00040-count-patients.rq against resources files
+--------------
+| nbPatients |
+==============
+| 17         |
+--------------
+
+(144 ms)
+
+Executing queries/queries2022/QC00041-count-data-provider.rq against resources files
+---------------
+| nbProviders |
+===============
+| 0           |
+---------------
+
+(3 ms)
+#Expected: This lists all classes that are not part of SPHN ontology. Should be empty.
+Executing queries/queries2022/QC00030-shows-classes-not-defined-in-ontology.rq against resources files
+--------------------
+| non_sphn_concept |
+====================
+| owl:Restriction  |
+--------------------
+
+(167 ms)
+#Lists all SPHN concepts that are not used in the given resource folder
+Executing queries/queries2022/QC00020-count-other-classes-not-in-ontology.rq against resources files
+----------------------------------------
+| sphn_concepts_not_in_use             |
+========================================
+| sphn:LabResult                       |
+| sphn:Biosample                       |
+| sphn:LabTest                         |
+| sphn:DrugAdministrationEvent         |
+| sphn:BirthDate                       |
+| sphn:CareHandling                    |
+| sphn:InhaledOxygenConcentration      |
+| sphn:TumorStage                      |
+| sphn:TNMClassification               |
+| sphn:TumorSpecimen                   |
+| sphn:TimePattern                     |
+| sphn:AdverseEvent                    |
+| sphn:HealthcareEncounter             |
+| sphn:CivilStatus                     |
+| sphn:AdministrativeGender            |
+| sphn:OncologyTreatmentAssessment     |
+| sphn:Consent                         |
+| sphn:TumorGrade                      |
+| sphn:TherapeuticArea                 |
+| sphn:Age                             |
+| sphn:DeathDate                       |
+| sphn:Drug                            |
+| sphn:GestationalAgeAtBirth           |
+| sphn:Diagnosis                       |
+| sphn:FOPHDiagnosis                   |
+| sphn:NursingDiagnosis                |
+| sphn:ICDODiagnosis                   |
+| sphn:ProblemCondition                |
+| sphn:MedicalDevice                   |
+| sphn:LabAnalyzer                     |
+| sphn:Procedure                       |
+| sphn:RadiotherapyProcedure           |
+| sphn:DiagnosticRadiologicExamination |
+| sphn:FOPHProcedure                   |
+| sphn:Unit                            |
+| sphn:SimpleScore                     |
+| sphn:Substance                       |
+| sphn:MeasurementMethod               |
+| sphn:BodySite                        |
+| sphn:Terminology                     |
+| snomed:138875005                     |
+| chop:CHOP                            |
+| sphn-atc:ATC                         |
+| icd-10-gm:ICD-10-GM                  |
+| sphn-loinc:LOINC                     |
+| ucum:UCUM                            |
+| sphn:Intent                          |
+| sphn:PharmaceuticalDoseForm          |
+| sphn:DataProviderInstitute           |
+| sphn:DataRelease                     |
+| sphn:Laterality                      |
+| sphn:AdministrativeCase              |
+| sphn:Code                            |
+| sphn:Location                        |
+| sphn:DeathStatus                     |
+| sphn:AllergyEpisode                  |
+| sphn:Quantity                        |
+| sphn:DrugPrescription                |
+| sphn:ReferenceRange                  |
+| sphn:DataDetermination               |
+| sphn:ValueSet                        |
+| sphn:Biobanksample                   |
+| sphn:Measurement                     |
+| sphn:OxygenSaturation                |
+| sphn:CircumferenceMeasure            |
+| sphn:BodyWeight                      |
+| sphn:HeartRate                       |
+| sphn:BodyTemperature                 |
+| sphn:BodyHeight                      |
+| sphn:BloodPressure                   |
+| sphn:RespiratoryRate                 |
+----------------------------------------
+
+(27 ms)
+#Shows all the data attributes used for every particular concept and how many objects are linked to, with their min, max...
+Executing queries/queries2022/QC00012-count-sphn-attributes.rq against resources files
+----------------------------------------------------------------------------------------
+| concept | attribute | range | sphn_objects_count | min_value | max_value | avg_value |
+========================================================================================
+----------------------------------------------------------------------------------------
+
+(535 ms)
+# Expected: This lists all properties (data + object) that are not part of SPHN ontology. Should be empty.
+Executing queries/queries2022/QC00031-shows-attributes-not-defined-in-ontology.rq against resources files
+----------------------
+| non_sphn_attribute |
+======================
+| sphn:replaces      |
+| owl:priorVersion   |
+| owl:deprecated     |
+| owl:minCardinality |
+| owl:onProperty     |
+| owl:maxCardinality |
+| skos:altLabel      |
+| owl:someValuesFrom |
+| owl:hasValue       |
+----------------------
+
+(204 ms)
+#The number of patients for each data provider (hospital)
+Executing queries/queries2022/QC00042-count-patients-per-hospital.rq against resources files
+--------------------------------------------------
+| dataProvider | dataProviderName | nbOfPatients |
+==================================================
+--------------------------------------------------
+
+(7 ms)
+#Counts the number of SPHN concepts
+Executing queries/queries2022/QC00010-count-sphn-distinct-concepts.rq against resources files
+--------------------------------------------------------------------------------------------------
+| concept                      | sphn_concepts_resources | subject_cnt | case_cnt | provider_cnt |
+==================================================================================================
+| sphn:SubjectPseudoIdentifier | 134                     | 0           | 0        | 0            |
+| sphn:Allergy                 | 29                      | 17          | 0        | 0            |
+--------------------------------------------------------------------------------------------------
+
+(14 ms)
+sample.queries.size 0 is empty
+No full export is defined.
+Running shape constraints against resources
+Reading shape from 0
+Validating SHACL shapes ................ 
+Executing distinctShapeQuery against resources files
+---------
+| shape |
+=========
+---------
+
+(2 ms)
+Loading external resources as model is 2021 format
+Files null*.ttl do not load: null
+Executing the distinct SHACL Violations Per resultPath against resources files
+------------------------------------------------------------------------------------------------------------------------------
+| resultSeverity | resultPath | sourceConstraintComponent | sourceShape | count | resultMessageMin | focusNodeMin | valueMin |
+==============================================================================================================================
+------------------------------------------------------------------------------------------------------------------------------
+
+(7 ms)
+Finished at 06.10.2022 17:37:52 in 5 seconds
+Commiting in 6 seconds
+End in 6 seconds

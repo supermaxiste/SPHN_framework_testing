@@ -1,0 +1,16 @@
+PREFIX sphn:<https://biomedit.ch/rdf/sphn-ontology/sphn#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT DISTINCT ?dataProvider ?dataProviderName (COUNT(?patient) AS ?nbOfPatients)
+WHERE { 
+    ?patient a sphn:SubjectPseudoIdentifier .
+    ?dataProvider a sphn:DataProviderInstitute .
+    
+    ?patient sphn:hasDataProviderInstitute ?dataProvider .
+    ?dataProvider sphn:hasDataProviderInstituteCode/sphn:hasCodeName ?dataProviderName .
+    
+
+} GROUP BY ?dataProvider ?dataProviderName
+
+#The number of patients for each data provider (hospital)

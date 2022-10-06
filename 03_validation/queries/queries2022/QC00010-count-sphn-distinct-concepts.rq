@@ -1,0 +1,25 @@
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sphn:<https://biomedit.ch/rdf/sphn-ontology/sphn#>
+PREFIX resource:<https://biomedit.ch/rdf/sphn-resource/>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX psss:<https://biomedit.ch/rdf/sphn-ontology/psss#>
+PREFIX spo:<https://biomedit.ch/rdf/sphn-ontology/spo#>
+
+
+SELECT ?concept (COUNT(?resource) AS ?sphn_concepts_resources)
+  (count(distinct ?subject) as ?subject_cnt)
+  (count(distinct ?case) as ?case_cnt)
+  (count(distinct ?provider) as ?provider_cnt)
+WHERE {
+  { ?concept rdfs:subClassOf+ sphn:SPHNConcept } UNION { ?concept rdfs:subClassOf+ psss:PSSSConcept } UNION { ?concept rdfs:subClassOf+ spo:SPOConcept } .
+  ?resource a ?concept .
+  optional {?resource sphn:hasDataProviderInstitute ?provider}
+  optional {?resource sphn:hasSubjectPseudoIdentifier ?subject}
+  optional {?resource sphn:hasAdministrativeCase ?case}
+
+  FILTER NOT EXISTS {?concept rdfs:subClassOf sphn:ValueSet}
+    
+} group by ?concept order by desc(?sphn_concepts_resources)
+
+#Counts the number of SPHN concepts

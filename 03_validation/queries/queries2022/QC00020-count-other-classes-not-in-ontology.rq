@@ -1,0 +1,16 @@
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sphn:<https://biomedit.ch/rdf/sphn-ontology/sphn#>
+PREFIX resource:<https://biomedit.ch/rdf/sphn-resource/>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX psss:<https://biomedit.ch/rdf/sphn-ontology/psss#>
+PREFIX spo:<https://biomedit.ch/rdf/sphn-ontology/spo#>
+
+SELECT distinct (?concept as ?sphn_concepts_not_in_use)
+WHERE {
+  { ?concept rdfs:subClassOf+ sphn:SPHNConcept } UNION { ?concept rdfs:subClassOf+ psss:PSSSConcept } UNION { ?concept rdfs:subClassOf+ spo:SPOConcept } .
+  filter not exists { ?resource a ?concept } .
+}
+
+
+#Lists all SPHN concepts that are not used in the given resource folder

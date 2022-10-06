@@ -1,0 +1,6 @@
+channels:
+  - conda-forge
+dependencies:
+  - rdflib=6.2.0
+  - jupyterlab=3.4.7
+  - sparqlwrapper=1.8.5

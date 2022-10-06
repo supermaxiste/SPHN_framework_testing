@@ -1,0 +1,15 @@
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sphn:<https://biomedit.ch/rdf/sphn-ontology/sphn#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+
+SELECT distinct ?non_sphn_concept
+WHERE {
+  ?_ a ?non_sphn_concept .
+  filter (?non_sphn_concept not in (rdfs:Datatype, owl:ObjectProperty, owl:DatatypeProperty, owl:NamedIndividual, owl:AnnotationProperty, sh:NodeShape, owl:Ontology, owl:Class))
+  filter not exists { ?non_sphn_concept rdfs:subClassOf+ sphn:SPHNConcept.  }
+}
+
+#Expected: This lists all classes that are not part of SPHN ontology. Should be empty.

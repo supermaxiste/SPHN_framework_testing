@@ -1,0 +1,22 @@
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sphn:<https://biomedit.ch/rdf/sphn-ontology/sphn#>
+PREFIX resource:<https://biomedit.ch/rdf/sphn-resource/>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX psss:<https://biomedit.ch/rdf/sphn-ontology/psss#>
+PREFIX spo:<https://biomedit.ch/rdf/sphn-ontology/spo#>
+PREFIX frailty:<https://biomedit.ch/rdf/sphn-ontology/frailty#>
+
+SELECT ?concept ?attribute ?range (COUNT(distinct ?value) AS ?sphn_objects_count)
+(MIN(?value) AS ?min_value) (MAX(?value) AS ?max_value) (AVG(?value) AS ?avg_value)
+WHERE {
+  optional { ?attribute rdfs:range ?range }
+  { ?concept rdfs:subClassOf+ sphn:SPHNConcept } UNION { ?concept rdfs:subClassOf+ psss:PSSSConcept } UNION { ?concept rdfs:subClassOf+ spo:SPOConcept } .
+  { ?attribute rdfs:subPropertyOf sphn:SPHNAttributeDatatype } UNION { ?attribute rdfs:subPropertyOf spo:SPOAttributeDatatype } UNION { ?attribute rdfs:subPropertyOf psss:PSSSAttributeDatatype } .
+  ?resource a ?concept .
+  ?resource ?attribute ?value.
+} group by ?concept ?attribute ?range
+order by ?concept ?attribute ?range
+
+#Shows all the data attributes used for every particular concept and how many objects are linked to, with their min, max...
+

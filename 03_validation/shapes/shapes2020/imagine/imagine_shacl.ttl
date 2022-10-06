@@ -1,0 +1,222 @@
+@prefix :         <http://sphn.ch/rdf/imagine/ontology/> .
+@prefix dash:     <http://datashapes.org/dash#> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema:   <http://schema.org/> .
+@prefix sh:       <http://www.w3.org/ns/shacl#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix sphn:     <http://sphn.ch/rdf/ontology/> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix imagine:      <http://sphn.ch/rdf/imagine/ontology/> .
+@base <http://sphn.ch/rdf/imagine/ontology/> .
+
+imagine:
+    rdf:type       owl:Ontology ;
+    owl:versionIRI imagine:2021.2 ;
+    rdfs:comment   "IMAGINE Official SHACL" .
+
+schema:FollowUpEventShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       imagine:FollowUpEvent ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     imagine:A200009-FollowUpEvent-event ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(alive|lost to follow-up|death|unknown)" ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     imagine:A200008-FollowUpEvent-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+#
+schema:IntentShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       imagine:Intent ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     imagine:A435-Intent-code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] .
+
+schema:GeneShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       imagine:Gene ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     imagine:A101-Gene-code ;
+                           sh:class    sphn:Code ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] .
+
+schema:GeneticMutationShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       imagine:GeneticMutation ;
+    sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     sphn:L3-encounter ;
+                           sh:nodeKind sh:IRI ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     imagine:A300005-GeneticMutation-mutation_status ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(mutated|not mutated)" ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     imagine:A300001-GeneticMutation-gene ;
+                           sh:class    imagine:Gene ;
+                           sh:minCount 1 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     imagine:A300006-GeneticMutation-datetime ;
+                           sh:datatype xsd:dateTime ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:DNAMethylationShape
+   a                    sh:NodeShape ;
+   sh:closed            true ;
+   sh:ignoredProperties ( rdf:type ) ;
+   sh:targetClass       imagine:DNAMethylation ;
+   sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                          sh:nodeKind sh:IRI ;
+                          sh:minCount 1 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                          sh:nodeKind sh:IRI ;
+                          sh:minCount 1 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     sphn:L3-encounter ;
+                          sh:nodeKind sh:IRI ;
+                          sh:minCount 0 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     imagine:A300010-DNAMethylation-methylation_status ;
+                          sh:datatype xsd:string ;
+                          sh:pattern  "(methylated|non methylated)" ;
+                          sh:minCount 1 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     imagine:A300008-DNAMethylation-genetic_element ;
+                          sh:datatype xsd:string ;
+                          sh:pattern  "(promoter|coding sequence|exon|intron|terminator)" ;
+                          sh:minCount 0 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     imagine:A300001-DNAMethylation-gene ;
+                          sh:class    imagine:Gene ;
+                          sh:minCount 1 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     imagine:A300011-DNAMethylation-datetime ;
+                          sh:datatype xsd:dateTime ;
+                          sh:minCount 0 ;
+                          sh:maxCount 1 ; ] .
+
+schema:DrugTherapyShape
+   a                    sh:NodeShape ;
+   sh:closed            true ;
+   sh:ignoredProperties ( rdf:type ) ;
+   sh:targetClass       imagine:DrugTherapy ;
+   sh:property          [ sh:path     sphn:L1-data_provider_institute ;
+                          sh:nodeKind sh:IRI ;
+                          sh:minCount 1 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     sphn:L2-subject_pseudo_identifier ;
+                          sh:nodeKind sh:IRI ;
+                          sh:minCount 1 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     sphn:L3-encounter ;
+                          sh:nodeKind sh:IRI ;
+                          sh:minCount 0 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     imagine:A300020-DrugTherapy-completion_status ;
+                          sh:datatype xsd:string ;
+                          sh:pattern  "(completed|discontinued|unknown)" ;
+                          sh:minCount 0 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     imagine:A300017-DrugTherapy-reason_to_stop_drug ;
+                          sh:datatype xsd:string ;
+                          sh:pattern  "(FOPH diagnosis|toxicity|cost|disease progression|end of planned therapy|no noticeable improvement|cytogenetic resistance|comorbidity|patient choice|death|lost to follow-up|other|unknown)" ;
+                          sh:minCount 0 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     imagine:A202-DrugTherapy-drug ;
+                          sh:class    sphn:Drug ;
+                          sh:minCount 1 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     imagine:A300019-DrugTherapy-given_number_of_cycles ;
+                          sh:datatype xsd:double ;
+                          sh:minCount 0 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     imagine:A300018-DrugTherapy-planned_number_of_cycles ;
+                          sh:datatype xsd:double ;
+                          sh:minCount 0 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     imagine:A300015-DrugTherapy-start_date ;
+                          sh:datatype xsd:dateTime ;
+                          sh:minCount 0 ;
+                          sh:maxCount 1 ; ] ;
+   sh:property          [ sh:path     imagine:A300016-DrugTherapy-end_date ;
+                          sh:datatype xsd:dateTime ;
+                          sh:minCount 0 ;
+                          sh:maxCount 1 ; ] .
+
+schema:RadiotherapyProcedureShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:RadiotherapyProcedure ;
+    sh:property          [ sh:path     imagine:A300012-RadiotherapyProcedure-completion_status ;
+                           sh:datatype xsd:string ;
+                           sh:pattern  "(completed|discontinued|unknown)" ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] ;
+    sh:property          [ sh:path     imagine:A300022-RadiotherapyProcedure-radiotherapy_intent_coded ;
+                           sh:class    imagine:Intent ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:FophDiagnosisShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:FophDiagnosis ;
+    sh:property          [ sh:path     imagine:A300021-FOPHDiagnosis-diagnosis_description ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .
+
+schema:FophProcedureShape
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:targetClass       sphn:FophProcedure ;
+    sh:property          [ sh:path     imagine:A327-FophProcedure-intent_coded ;
+                           sh:class    imagine:Intent ;
+                           sh:minCount 0 ;
+                           sh:maxCount 1 ; ] .

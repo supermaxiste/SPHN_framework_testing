@@ -1,0 +1,23 @@
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sphn:<https://biomedit.ch/rdf/sphn-ontology/sphn#>
+PREFIX resource:<https://biomedit.ch/rdf/sphn-resource/>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX shacl:<http://www.w3.org/ns/shacl#>
+PREFIX dct:<http://purl.org/dc/terms/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/> 
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT distinct ?non_sphn_attribute
+WHERE {
+    
+  ?subject ?non_sphn_attribute ?predicate .
+    
+  filter (?non_sphn_attribute not in (dc:description, dc:title, dct:license, owl:sameAs, owl:versionIRI, owl:imports, owl:intersectionOf, owl:unionOf, owl:oneOf, owl:equivalentClass, rdf:type, rdf:first, rdf:rest, rdfs:label, rdfs:domain, rdfs:range, rdfs:comment, rdfs:isDefinedBy, rdfs:subClassOf, rdfs:subPropertyOf, shacl:closed, shacl:ignoredProperties, shacl:targetClass, shacl:property, shacl:pattern, shacl:path, shacl:nodeKind, shacl:minCount, shacl:maxCount, shacl:datatype, shacl:class, shacl:or, skos:note, skos:definition))
+ 
+  filter not exists { ?non_sphn_attribute rdfs:subPropertyOf+ sphn:SPHNAttributeDatatype .  }
+  filter not exists { ?non_sphn_attribute rdfs:subPropertyOf+ sphn:SPHNAttributeObject .  }
+}
+
+# Expected: This lists all properties (data + object) that are not part of SPHN ontology. Should be empty.

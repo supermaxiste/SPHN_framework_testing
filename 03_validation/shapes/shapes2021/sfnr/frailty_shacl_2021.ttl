@@ -1,0 +1,1977 @@
+@prefix constraints:     <https://biomedit.ch/rdf/sphn-ontology-constraints/sphn#> .
+@prefix ns1:             <http://purl.org/dc/terms/> .
+@prefix ns2:             <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:             <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:            <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:              <http://www.w3.org/ns/shacl#> .
+@prefix sphn:            <https://biomedit.ch/rdf/sphn-ontology/sphn#> .
+@prefix xsd:             <http://www.w3.org/2001/XMLSchema#> .
+@prefix chop:            <https://biomedit.ch/rdf/sphn-resource/chop/> .
+@prefix ucum:            <https://biomedit.ch/rdf/sphn-resource/ucum/> .
+@prefix loinc:           <https://biomedit.ch/rdf/sphn-resource/loinc/> .
+@prefix icd-10-gm:       <https://biomedit.ch/rdf/sphn-resource/icd-10-gm/> .
+@prefix frailty:         <https://biomedit.ch/rdf/sphn-ontology/frailty#> .
+@prefix snomed:          <http://snomed.info/id/> .
+
+constraints:
+    a              ns2:Ontology ;
+    ns1:created    "2021-09-20"^^xsd:date ;
+    ns1:license    <https://creativecommons.org/licenses/by-nc-sa/4.0/> ;
+    rdfs:comment   "HUG internal - Based on sphn_shacl_2021.ttl."^^xsd:string ;
+    ns2:versionIRI <https://biomedit.ch/rdf/sphn-ontology/sphn/frailty/1> ;
+    sh:entailment  <http://www.w3.org/ns/entailment/RDFS> .
+
+constraints:sphnAdministrativeCase
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasIdentifier ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasAdministrativeCaseAdmissionDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasStartDateTime ], #
+                         [ sh:class sphn:Location ;
+                           sh:path  sphn:hasOriginLocation ], #
+                         [ sh:class sphn:Location ;
+                           sh:path  sphn:hasAdministrativeCaseDischargeLocation ], #
+                         [ sh:class sphn:Location ;
+                           sh:path  sphn:hasAdministrativeCaseOriginLocation ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasAdministrativeCaseDischargeDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasEndDateTime ], #
+                         [ sh:class sphn:CareHandling ;
+                           sh:path  sphn:hasAdministrativeCaseCareHandling ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class sphn:Location ;
+                           sh:path  sphn:hasDestinationLocation ], #
+                         [ sh:class sphn:Location ;
+                           sh:path  sphn:hasLocation ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ] ;
+    sh:targetClass       sphn:AdministrativeCase .
+
+constraints:sphnAdministrativeGender
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasAdministrativeGenderDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 1 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:or   ( [ sh:class snomed:74964007 ] #
+                                     [ sh:class snomed:261665006 ] #
+                                     [ sh:class snomed:703117000 ] #
+                                     [ sh:class snomed:703118005 ] ) ;
+                           sh:path sphn:hasAdministrativeGenderCode ] ;
+    sh:targetClass       sphn:AdministrativeGender .
+
+constraints:sphnAdverseEvent
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:AdverseEvent_consequences ;
+                           sh:path  sphn:hasAdverseEventConsequences ], #
+                         [ sh:class sphn:AdverseEvent_outcome ;
+                           sh:path  sphn:hasAdverseEventOutcome ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasAdverseEventDateTime ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasAdverseEventIntervention ], #
+                         [ sh:class sphn:Code ;
+                           sh:path  sphn:hasAdverseEventCode ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:class sphn:Code ;
+                           sh:path  sphn:hasAdverseEventSeverityGradeCode ] ;
+    sh:targetClass       sphn:AdverseEvent .
+
+constraints:sphnAllergy
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:or   ( [ sh:class snomed:723505004 ] #
+                                     [ sh:class snomed:723509005 ] #
+                                     [ sh:class snomed:723507007 ] ) ;
+                           sh:path sphn:hasAllergySeverityCode ], #
+                         [ sh:or   ( [ sh:class snomed:415684004 ] #
+                                     [ sh:class snomed:723510000 ] #
+                                     [ sh:class snomed:410605003 ] #
+                                     [ sh:class snomed:723511001 ] ) ;
+                           sh:path sphn:hasAllergyVerificationStatusCode ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:Substance ;
+                           sh:path  sphn:hasSubstance ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:or   ( [ sh:class snomed:782197009 ] #
+                                     [ sh:class snomed:261665006 ] #
+                                     [ sh:class snomed:419199007 ] ) ;
+                           sh:path sphn:hasAllergyReactionTypeCode ], #
+                         [ sh:class sphn:Allergy_substanceCategory ;
+                           sh:path  sphn:hasAllergySubstanceCategory ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasAllergyIdentificationDateTime ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasAllergyLastReactionDateTime ] ;
+    sh:targetClass       sphn:Allergy .
+
+constraints:sphnAllergyEpisode
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class snomed:284009009 ;
+                           sh:path  sphn:hasAllergyEpisodeExposureRouteCode ], #
+                         [ sh:class sphn:Duration ;
+                           sh:path  sphn:hasAllergyEpisodeExposureDuration ], #
+                         [ sh:class snomed:404684003 ;
+                           sh:path  sphn:hasAllergyEpisodeManifestationCode ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:Duration ;
+                           sh:path  sphn:hasAllergyEpisodeManifestationDuration ], #
+                         [ sh:class sphn:Substance ;
+                           sh:path  sphn:hasSubstance ], #
+                         [ sh:class sphn:Duration ;
+                           sh:path  sphn:hasDuration ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasAllergyEpisodeManifestationDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasAllergyEpisodeExposureDateTime ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasBodySite ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasAllergyEpisodeManifestationBodySite ], #
+                         [ sh:or   ( [ sh:class snomed:410592001 ] #
+                                     [ sh:class snomed:410605003 ] #
+                                     [ sh:class snomed:415684004 ] ) ;
+                           sh:path sphn:hasAllergyEpisodeCertaintyCode ], #
+                         [ sh:or   ( [ sh:class snomed:6736007 ] #
+                                     [ sh:class snomed:24484000 ] #
+                                     [ sh:class snomed:255604002 ] ) ;
+                           sh:path sphn:hasAllergyEpisodeManifestationSeverityCode ] ;
+    sh:targetClass       sphn:AllergyEpisode .
+
+constraints:sphnBiobanksample
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:Biosample ;
+                           sh:path  sphn:hasBiosample ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasIdentifier ] ;
+    sh:targetClass       sphn:Biobanksample .
+
+constraints:sphnBiosample
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:Biosample_materialTypeLiquid ;
+                           sh:path  sphn:hasBiosampleMaterialTypeLiquid ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class sphn:Biosample_primaryContainerType ;
+                           sh:path  sphn:hasBiosamplePrimaryContainerType ], #
+                         [ sh:class sphn:Biosample_fixationType ;
+                           sh:path  sphn:hasBiosampleFixationType ], #
+                         [ sh:class sphn:Biosample_storageContainer ;
+                           sh:path  sphn:hasBiosampleStorageContainer ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasBiosampleDateTime ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasBodySite ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasBiosampleBodySite ], #
+                         [ sh:class sphn:Biosample_materialTypeTissue ;
+                           sh:path  sphn:hasBiosampleMaterialTypeTissue ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ] ;
+    sh:targetClass       sphn:Biosample .
+
+constraints:sphnBirthDate
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:minCount 1 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:gYear ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ] ;
+    sh:targetClass       sphn:BirthDate .
+
+constraints:sphnBodyHeight
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasBodyHeightValue ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasBodyHeightUnit ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ] ;
+    sh:targetClass       sphn:BodyHeight .
+
+constraints:sphnBodySite
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:or   ( [ sh:class snomed:123037004 ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasBodySiteCode ] ;
+    sh:targetClass       sphn:BodySite .
+
+constraints:sphnBodyTemperature
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasBodySite ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasBodyTemperatureUnit ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasBodyTemperatureValue ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ] ;
+    sh:targetClass       sphn:BodyTemperature .
+
+constraints:sphnBodyWeight
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasBodyWeightValue ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasBodyWeightUnit ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ] ;
+    sh:targetClass       sphn:BodyWeight .
+
+constraints:sphnCareHandling
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:or   ( [ sh:class snomed:371883000 ] #
+                                     [ sh:class snomed:304903009 ] #
+                                     [ sh:class snomed:261665006 ] #
+                                     [ sh:class snomed:394656005 ] ) ;
+                           sh:path sphn:hasCareHandlingTypeCode ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ] ;
+    sh:targetClass       sphn:CareHandling .
+
+constraints:sphnCatheter
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasCatheterRemovalDateTime ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasCatheterPositionBodySite ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasCatheterInsertionPointBodySite ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasEndDateTime ], #
+                         [ sh:class snomed:19923001 ;
+                           sh:path  sphn:hasCatheterDeviceTypeCode ], #
+                         [ sh:or   ( [ sh:class snomed:272181003 ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasMedicalDeviceCode ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasBodySite ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasStartDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasCatheterInsertionDateTime ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ] ;
+    sh:targetClass       sphn:Catheter .
+
+constraints:sphnCentralVenousPressure
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasCentralVenousPressureUnit ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasCentralVenousPressureValue ], #
+                         [ sh:class sphn:Catheter ;
+                           sh:path  sphn:hasCentralVenousPressureCatheter ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ] ;
+    sh:targetClass       sphn:CentralVenousPressure .
+
+constraints:sphnCircumferenceMeasure
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasCircumferenceMeasureUnit ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasCircumferenceMeasureValue ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:or   ( [ sh:class snomed:29836001 ] #
+                                     [ sh:class snomed:33673004 ] #
+                                     [ sh:class snomed:69536005 ] #
+                                     [ sh:class snomed:45048000 ] ) ;
+                           sh:path sphn:hasCircumferenceMeasureBodySite ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasBodySite ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ] ;
+    sh:targetClass       sphn:CircumferenceMeasure .
+
+constraints:sphnCivilStatus
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:minCount 1 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:or   ( [ sh:class snomed:125681006 ] #
+                                     [ sh:class snomed:33553000 ] #
+                                     [ sh:class snomed:20295000 ] #
+                                     [ sh:class snomed:160504008 ] #
+                                     [ sh:class snomed:87915002 ] #
+                                     [ sh:class snomed:14012001 ] #
+                                     [ sh:class snomed:266945001 ] ) ;
+                           sh:path sphn:hasCivilStatusCode ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ] ;
+    sh:targetClass       sphn:CivilStatus .
+
+constraints:sphnCode
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:string ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasCodeCodingSystemAndVersion ], #
+                         [ sh:datatype xsd:string ;
+                           sh:maxCount 1 ;
+                           sh:minCount 1 ;
+                           sh:path     sphn:hasIdentifier ], #
+                         [ sh:datatype xsd:string ;
+                           sh:maxCount 10 ; # some identifiers have various names
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasCodeName ] ;
+    sh:targetClass       sphn:Code .
+
+constraints:sphnConsent
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasIdentifier ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:or   ( [ sh:class snomed:443390004 ] #
+                                     [ sh:class snomed:225795001 ] #
+                                     [ sh:class snomed:261665006 ] #
+                                     [ sh:class snomed:385645004 ] ) ;
+                           sh:path sphn:hasConsentStatusCode ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:or   ( [ sh:class snomed:69658003 ] #
+                                     [ sh:class snomed:410529002 ] #
+                                     [ sh:class snomed:60132005 ] ) ;
+                           sh:path sphn:hasConsentTypeCode ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ] ;
+    sh:targetClass       sphn:Consent .
+
+constraints:sphnDataDetermination
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:or   ( [ sh:class snomed:414135002 ] #
+                                     [ sh:class snomed:87982008 ] #
+                                     [ sh:class snomed:261665006 ] #
+                                     [ sh:class snomed:258104002 ] #
+                                     [ sh:class snomed:258090004 ] ) ;
+                           sh:path sphn:hasDataDeterminationMethodCode ] ;
+    sh:targetClass       sphn:DataDetermination .
+
+constraints:sphnDataProviderInstitute
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:Code ;
+                           sh:path  sphn:hasDataProviderInstituteCode ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ] ;
+    sh:targetClass       sphn:DataProviderInstitute .
+
+constraints:sphnDataRelease
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasExtractionDate ] ;
+    sh:targetClass       sphn:DataRelease .
+
+constraints:sphnDeathStatus
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class sphn:Death_status ;
+                           sh:path  sphn:hasDeathStatus ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDeathStatusDateTime ] ;
+    sh:targetClass       sphn:DeathStatus .
+
+constraints:sphnDiagnosticRadiologicExamination
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasFOPHProcedureDateTime ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:class sphn:Intent ;
+                           sh:path  sphn:hasIntent ], #
+                         [ sh:class chop:CHOP ;
+                           sh:path  sphn:hasFOPHProcedureCode ], #
+                         [ sh:class sphn:DiagnosticRadiologicExamination_method ;
+                           sh:path  sphn:hasDiagnosticRadiologicExaminationMethod ], #
+                         [ sh:class sphn:FOPHProcedure_rank ;
+                           sh:path  sphn:hasFOPHProcedureRank ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasBodySite ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasDiagnosticRadiologicExaminationRadiationAmount ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasDiagnosticRadiologicExaminationUnit ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:or   ( [ sh:class chop:Z87.59.99 ] #
+                                     [ sh:class chop:Z87.76.99 ] #
+                                     [ sh:class chop:Z88.92.00 ] #
+                                     [ sh:class chop:Z88.94.00 ] #
+                                     [ sh:class chop:Z87.32 ] #
+                                     [ sh:class chop:Z87.79 ] #
+                                     [ sh:class chop:Z88.31 ] #
+                                     [ sh:class chop:Z87.59.00 ] #
+                                     [ sh:class chop:Z88.38.22 ] #
+                                     [ sh:class chop:Z87.83 ] #
+                                     [ sh:class chop:Z87.14 ] #
+                                     [ sh:class chop:Z87.41.11 ] #
+                                     [ sh:class chop:Z87.89 ] #
+                                     [ sh:class chop:Z88.48.00 ] #
+                                     [ sh:class chop:Z88.97.12 ] #
+                                     [ sh:class chop:Z92.09.99 ] #
+                                     [ sh:class chop:Z88.13 ] #
+                                     [ sh:class chop:Z88.57 ] #
+                                     [ sh:class chop:Z88.97.15 ] #
+                                     [ sh:class chop:Z88.92.22 ] #
+                                     [ sh:class chop:Z87.77.99 ] #
+                                     [ sh:class chop:Z87.77.10 ] #
+                                     [ sh:class chop:Z88.26 ] #
+                                     [ sh:class chop:Z87.74 ] #
+                                     [ sh:class chop:Z92.19.00 ] #
+                                     [ sh:class chop:Z88.36 ] #
+                                     [ sh:class chop:Z92.04 ] #
+                                     [ sh:class chop:Z88.67 ] #
+                                     [ sh:class chop:Z00.23 ] #
+                                     [ sh:class chop:Z87.39 ] #
+                                     [ sh:class chop:Z87.52 ] #
+                                     [ sh:class chop:Z88.92.12 ] #
+                                     [ sh:class chop:Z92.18.08 ] #
+                                     [ sh:class chop:Z00.22 ] #
+                                     [ sh:class chop:Z88.27 ] #
+                                     [ sh:class chop:Z88.58 ] #
+                                     [ sh:class chop:Z87.64.99 ] #
+                                     [ sh:class chop:Z92.18.02 ] #
+                                     [ sh:class chop:Z88.97.00 ] #
+                                     [ sh:class chop:Z88.38.99 ] #
+                                     [ sh:class chop:Z87.21.99 ] #
+                                     [ sh:class chop:Z88.63.10 ] #
+                                     [ sh:class chop:Z87.04.99 ] #
+                                     [ sh:class chop:Z88.92.19 ] #
+                                     [ sh:class chop:Z92.13 ] #
+                                     [ sh:class chop:Z87.41.99 ] #
+                                     [ sh:class chop:Z87.15 ] #
+                                     [ sh:class chop:Z92.01 ] #
+                                     [ sh:class chop:Z92.19.01 ] #
+                                     [ sh:class chop:Z92.05.14 ] #
+                                     [ sh:class chop:Z88.38.41 ] #
+                                     [ sh:class chop:Z92.15 ] #
+                                     [ sh:class chop:Z92.12 ] #
+                                     [ sh:class chop:Z88.92.10 ] #
+                                     [ sh:class chop:Z87.81 ] #
+                                     [ sh:class chop:Z87.24 ] #
+                                     [ sh:class chop:Z88.38.51 ] #
+                                     [ sh:class chop:Z87.21.10 ] #
+                                     [ sh:class chop:Z87.34 ] #
+                                     [ sh:class chop:Z87.06 ] #
+                                     [ sh:class chop:Z87.41.12 ] #
+                                     [ sh:class chop:Z88.39.99 ] #
+                                     [ sh:class chop:Z88.92.23 ] #
+                                     [ sh:class chop:Z88.94.10 ] #
+                                     [ sh:class chop:Z88.38.31 ] #
+                                     [ sh:class chop:Z88.92.11 ] #
+                                     [ sh:class chop:Z88.92.34 ] #
+                                     [ sh:class chop:Z87.49 ] #
+                                     [ sh:class chop:Z92.05.19 ] #
+                                     [ sh:class chop:Z88.94.12 ] #
+                                     [ sh:class chop:Z87.35 ] #
+                                     [ sh:class chop:Z88.43 ] #
+                                     [ sh:class chop:Z88.01.99 ] #
+                                     [ sh:class chop:Z87.03 ] #
+                                     [ sh:class chop:Z87.08 ] #
+                                     [ sh:class chop:Z87.54.10 ] #
+                                     [ sh:class chop:Z88.92.21 ] #
+                                     [ sh:class chop:Z88.98.00 ] #
+                                     [ sh:class chop:Z87.92 ] #
+                                     [ sh:class chop:Z88.97.14 ] #
+                                     [ sh:class chop:Z88.49.10 ] #
+                                     [ sh:class chop:Z92.09.10 ] #
+                                     [ sh:class chop:Z88.92.29 ] #
+                                     [ sh:class chop:Z88.16 ] #
+                                     [ sh:class chop:Z88.48.10 ] #
+                                     [ sh:class chop:Z88.65 ] #
+                                     [ sh:class chop:Z88.66 ] #
+                                     [ sh:class chop:Z87.61.99 ] #
+                                     [ sh:class chop:Z88.92.24 ] #
+                                     [ sh:class chop:Z88.94.99 ] #
+                                     [ sh:class chop:Z88.98.10 ] #
+                                     [ sh:class chop:Z88.35 ] #
+                                     [ sh:class chop:Z87.59.10 ] #
+                                     [ sh:class chop:Z00.28 ] #
+                                     [ sh:class chop:Z88.38.00 ] #
+                                     [ sh:class chop:Z87.04.11 ] #
+                                     [ sh:class chop:Z87.04.10 ] #
+                                     [ sh:class chop:Z92.05.10 ] #
+                                     [ sh:class chop:Z88.94.14 ] #
+                                     [ sh:class chop:Z92.18.05 ] #
+                                     [ sh:class chop:Z88.29 ] #
+                                     [ sh:class chop:Z87.63 ] #
+                                     [ sh:class chop:Z87.64.00 ] #
+                                     [ sh:class chop:Z92.09.00 ] #
+                                     [ sh:class chop:Z92.05.13 ] #
+                                     [ sh:class chop:Z88.61.00 ] #
+                                     [ sh:class chop:Z88.55 ] #
+                                     [ sh:class chop:Z87.09.99 ] #
+                                     [ sh:class chop:Z88.92.39 ] #
+                                     [ sh:class chop:Z87.41.16 ] #
+                                     [ sh:class chop:Z92.19.04 ] #
+                                     [ sh:class chop:Z88.69 ] #
+                                     [ sh:class chop:Z88.01.10 ] #
+                                     [ sh:class chop:Z88.96 ] #
+                                     [ sh:class chop:Z88.32 ] #
+                                     [ sh:class chop:Z88.42.00 ] #
+                                     [ sh:class chop:Z88.59 ] #
+                                     [ sh:class chop:Z87.33 ] #
+                                     [ sh:class chop:Z88.42.99 ] #
+                                     [ sh:class chop:Z87.09.00 ] #
+                                     [ sh:class chop:Z88.94.13 ] #
+                                     [ sh:class chop:Z87.18 ] #
+                                     [ sh:class chop:Z88.42.10 ] #
+                                     [ sh:class chop:Z88.56 ] #
+                                     [ sh:class chop:Z88.92.30 ] #
+                                     [ sh:class chop:Z88.90.30 ] #
+                                     [ sh:class chop:Z87.99 ] #
+                                     [ sh:class chop:Z87.01 ] #
+                                     [ sh:class chop:Z87.69 ] #
+                                     [ sh:class chop:Z88.49.00 ] #
+                                     [ sh:class chop:Z88.54 ] #
+                                     [ sh:class chop:Z88.41.21 ] #
+                                     [ sh:class chop:Z88.97.16 ] #
+                                     [ sh:class chop:Z88.39.21 ] #
+                                     [ sh:class chop:Z92.19.02 ] #
+                                     [ sh:class chop:Z88.42.11 ] #
+                                     [ sh:class chop:Z92.14 ] #
+                                     [ sh:class chop:Z87.41.13 ] #
+                                     [ sh:class chop:Z88.19 ] #
+                                     [ sh:class chop:Z88.91.11 ] #
+                                     [ sh:class chop:Z88.39.30 ] #
+                                     [ sh:class chop:Z87.36 ] #
+                                     [ sh:class chop:Z88.45 ] #
+                                     [ sh:class chop:Z92.16 ] #
+                                     [ sh:class chop:Z88.91.99 ] #
+                                     [ sh:class chop:Z88.53 ] #
+                                     [ sh:class chop:Z92.19.03 ] #
+                                     [ sh:class chop:Z87.04.00 ] #
+                                     [ sh:class chop:Z87.41.14 ] #
+                                     [ sh:class chop:Z88.11 ] #
+                                     [ sh:class chop:Z88.23 ] #
+                                     [ sh:class chop:Z88.91.00 ] #
+                                     [ sh:class chop:Z92.19.08 ] #
+                                     [ sh:class chop:Z88.47 ] #
+                                     [ sh:class chop:Z00.21 ] #
+                                     [ sh:class chop:Z87.23 ] #
+                                     [ sh:class chop:Z87.64.20 ] #
+                                     [ sh:class chop:Z88.44 ] #
+                                     [ sh:class chop:Z88.34 ] #
+                                     [ sh:class chop:Z92.11.08 ] #
+                                     [ sh:class chop:Z87.37.00 ] #
+                                     [ sh:class chop:Z88.24 ] #
+                                     [ sh:class chop:Z88.64 ] #
+                                     [ sh:class chop:Z88.12 ] #
+                                     [ sh:class chop:Z87.53 ] #
+                                     [ sh:class chop:Z88.15 ] #
+                                     [ sh:class chop:Z87.85 ] #
+                                     [ sh:class chop:Z88.49.11 ] #
+                                     [ sh:class chop:Z92.18.01 ] #
+                                     [ sh:class chop:Z87.07 ] #
+                                     [ sh:class chop:Z87.29 ] #
+                                     [ sh:class chop:Z87.41.00 ] #
+                                     [ sh:class chop:Z88.01.20 ] #
+                                     [ sh:class chop:Z88.09 ] #
+                                     [ sh:class chop:Z87.22 ] #
+                                     [ sh:class chop:Z88.94.16 ] #
+                                     [ sh:class chop:Z87.72 ] #
+                                     [ sh:class chop:Z87.41.15 ] #
+                                     [ sh:class chop:Z88.01.00 ] #
+                                     [ sh:class chop:Z88.97.20 ] #
+                                     [ sh:class chop:Z87.61.10 ] #
+                                     [ sh:class chop:Z88.39.10 ] #
+                                     [ sh:class chop:Z92.02 ] #
+                                     [ sh:class chop:Z87.76.10 ] #
+                                     [ sh:class chop:Z88.22 ] #
+                                     [ sh:class chop:Z87.41.10 ] #
+                                     [ sh:class chop:Z88.28 ] #
+                                     [ sh:class chop:Z88.50 ] #
+                                     [ sh:class chop:Z88.97.99 ] #
+                                     [ sh:class chop:Z88.38.60 ] #
+                                     [ sh:class chop:Z87.76.00 ] #
+                                     [ sh:class chop:Z88.02 ] #
+                                     [ sh:class chop:Z88.90.10 ] #
+                                     [ sh:class chop:Z87.78 ] #
+                                     [ sh:class chop:Z92.18.00 ] #
+                                     [ sh:class chop:Z87.91 ] #
+                                     [ sh:class chop:Z92.05.12 ] #
+                                     [ sh:class chop:Z88.63.99 ] #
+                                     [ sh:class chop:Z87.38 ] #
+                                     [ sh:class chop:Z87.65 ] #
+                                     [ sh:class chop:Z88.97.18 ] #
+                                     [ sh:class chop:Z92.05.11 ] #
+                                     [ sh:class chop:Z87.94 ] #
+                                     [ sh:class chop:Z88.98.99 ] #
+                                     [ sh:class chop:Z88.41.11 ] #
+                                     [ sh:class chop:Z87.51 ] #
+                                     [ sh:class chop:Z88.68 ] #
+                                     [ sh:class chop:Z88.51 ] #
+                                     [ sh:class chop:Z88.33 ] #
+                                     [ sh:class chop:Z88.38.21 ] #
+                                     [ sh:class chop:Z92.19.06 ] #
+                                     [ sh:class chop:Z88.38.50 ] #
+                                     [ sh:class chop:Z88.46 ] #
+                                     [ sh:class chop:Z88.92.31 ] #
+                                     [ sh:class chop:Z88.60 ] #
+                                     [ sh:class chop:Z88.92.33 ] #
+                                     [ sh:class chop:Z88.04 ] #
+                                     [ sh:class chop:Z87.09.10 ] #
+                                     [ sh:class chop:Z87.62 ] #
+                                     [ sh:class chop:Z87.66 ] #
+                                     [ sh:class chop:Z88.03 ] #
+                                     [ sh:class chop:Z88.39.00 ] #
+                                     [ sh:class chop:Z88.94.11 ] #
+                                     [ sh:class chop:Z87.13 ] #
+                                     [ sh:class chop:Z88.48.99 ] #
+                                     [ sh:class chop:Z92.03 ] #
+                                     [ sh:class chop:Z87.54.00 ] #
+                                     [ sh:class chop:Z88.49.99 ] #
+                                     [ sh:class chop:Z87.61.00 ] #
+                                     [ sh:class chop:Z88.21 ] #
+                                     [ sh:class chop:Z87.77.00 ] #
+                                     [ sh:class chop:Z88.97.17 ] #
+                                     [ sh:class chop:Z87.12 ] #
+                                     [ sh:class chop:Z92.11.00 ] #
+                                     [ sh:class chop:Z88.40 ] #
+                                     [ sh:class chop:Z87.41.19 ] #
+                                     [ sh:class chop:Z87.75 ] #
+                                     [ sh:class chop:Z88.39.20 ] #
+                                     [ sh:class chop:Z87.02 ] #
+                                     [ sh:class chop:Z87.84 ] #
+                                     [ sh:class chop:Z88.61.99 ] #
+                                     [ sh:class chop:Z88.95 ] #
+                                     [ sh:class chop:Z88.38.30 ] #
+                                     [ sh:class chop:Z87.37.10 ] #
+                                     [ sh:class chop:Z88.97.11 ] #
+                                     [ sh:class chop:Z92.05.00 ] #
+                                     [ sh:class chop:Z87.64.30 ] #
+                                     [ sh:class chop:Z87.05 ] #
+                                     [ sh:class chop:Z87.54.99 ] #
+                                     [ sh:class chop:Z87.64.10 ] #
+                                     [ sh:class chop:Z92.18.04 ] #
+                                     [ sh:class chop:Z92.05.09 ] #
+                                     [ sh:class chop:Z88.62 ] #
+                                     [ sh:class chop:Z88.63.00 ] #
+                                     [ sh:class chop:Z87.37.99 ] #
+                                     [ sh:class chop:Z87.71 ] #
+                                     [ sh:class chop:Z88.92.20 ] #
+                                     [ sh:class chop:Z88.92.99 ] #
+                                     [ sh:class chop:Z88.52 ] #
+                                     [ sh:class chop:Z88.92.13 ] #
+                                     [ sh:class chop:Z88.38.32 ] #
+                                     [ sh:class chop:Z87.95 ] #
+                                     [ sh:class chop:Z00.25 ] #
+                                     [ sh:class chop:Z88.97.19 ] #
+                                     [ sh:class chop:Z92.18.03 ] #
+                                     [ sh:class chop:Z92.19.05 ] #
+                                     [ sh:class chop:Z88.38.40 ] #
+                                     [ sh:class chop:Z88.25 ] #
+                                     [ sh:class chop:Z87.21.00 ] #
+                                     [ sh:class chop:Z88.92.14 ] #
+                                     [ sh:class chop:Z88.91.10 ] #
+                                     [ sh:class chop:Z88.92.32 ] #
+                                     [ sh:class chop:Z88.37 ] #
+                                     [ sh:class chop:Z88.97.10 ] #
+                                     [ sh:class chop:Z87.31 ] #
+                                     [ sh:class chop:Z88.61.10 ] #
+                                     [ sh:class chop:Z87.93 ] #
+                                     [ sh:class chop:Z88.14 ] #
+                                     [ sh:class chop:Z88.38.20 ] #
+                                     [ sh:class chop:Z87.73 ] #
+                                     [ sh:class chop:Z87.82 ] ) ;
+                           sh:path sphn:hasDiagnosticRadiologicExaminationCode ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ] ;
+    sh:targetClass       sphn:DiagnosticRadiologicExamination .
+
+constraints:sphnDrug
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:Substance ;
+                           sh:path  sphn:hasSubstance ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:or   ( [ sh:class <https://biomedit.ch/rdf/sphn-resource/atc/ATC> ]#
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasDrugProductCode ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class sphn:Substance ;
+                           sh:path  sphn:hasDrugActiveIngredientSubstance ], #
+                         [ sh:class sphn:Substance ;
+                           sh:path  sphn:hasDrugInactiveIngredientSubstance ] ;
+    sh:targetClass       sphn:Drug .
+
+constraints:sphnDrugAdministrationEvent
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:or   ( [ sh:class snomed:419620001 ] #
+                                     [ sh:class snomed:31438003 ] #
+                                     [ sh:class snomed:74964007 ] #
+                                     [ sh:class snomed:395009001 ] #
+                                     [ sh:class snomed:182846007 ] #
+                                     [ sh:class snomed:395007004 ] #
+                                     [ sh:class snomed:182845006 ] #
+                                     [ sh:class snomed:182872003 ] #
+                                     [ sh:class snomed:182844005 ] #
+                                     [ sh:class snomed:399307001 ] #
+                                     [ sh:class snomed:441308009 ] ) ;
+                           sh:path sphn:hasDrugAdministrationEventReasonToStopCode ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasStartDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDrugAdministrationEventEndDateTime ], #
+                         [ sh:class sphn:TimePattern ;
+                           sh:path  sphn:hasTimePattern ], #
+                         [ sh:or   ( [ sh:class snomed:284009009 ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasAdministrationRouteCode ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:class sphn:Duration ;
+                           sh:path  sphn:hasDuration ], #
+                         [ sh:class sphn:Drug ;
+                           sh:path  sphn:hasDrug ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasEndDateTime ], #
+                         [ sh:class sphn:SubstanceAmount ;
+                           sh:path  sphn:hasSubstanceAmount ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDrugAdministrationEventStartDateTime ], #
+                         [ sh:or   ( [ sh:class snomed:736542009 ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasGalenicCode ] ;
+    sh:targetClass       sphn:DrugAdministrationEvent .
+
+constraints:sphnDrugPrescription
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDrugPrescriptionFirstAdministrationDateTime ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasEndDateTime ], #
+                         [ sh:class sphn:Intent ;
+                           sh:path  sphn:hasIntent ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:Frequency ;
+                           sh:path  sphn:hasFrequency ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDrugPrescriptionLastAdministrationDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:or   ( [ sh:class snomed:736542009 ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasGalenicCode ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasStartDateTime ], #
+                         [ sh:class sphn:Drug ;
+                           sh:path  sphn:hasDrug ], #
+                         [ sh:class sphn:SubstanceAmount ;
+                           sh:path  sphn:hasSubstanceAmount ], #
+                         [ sh:class sphn:TimePattern ;
+                           sh:path  sphn:hasTimePattern ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:or   ( [ sh:class sphn:DrugPrescription_indicationToStart ] #
+                                     [ sh:class sphn:FOPHDiagnosis ] ) ;
+                           sh:path sphn:hasDrugPrescriptionIndicationToStart ], #
+                         [ sh:or   ( [ sh:class snomed:284009009 ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasAdministrationRouteCode ] ;
+    sh:targetClass       sphn:DrugPrescription .
+
+constraints:sphnDuration
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasDurationUnit ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasDurationValue ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ] ;
+    sh:targetClass       sphn:Duration .
+
+constraints:sphnFOPHDiagnosis
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:FOPHDiagnosis_rank ;
+                           sh:path  sphn:hasFOPHDiagnosisRank ], #
+                         [ sh:class icd-10-gm:ICD-10-GM ;
+                           sh:path  sphn:hasFOPHDiagnosisCode ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ] ;
+    sh:targetClass       sphn:FOPHDiagnosis .
+
+constraints:sphnFOPHProcedure
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:FOPHProcedure_rank ;
+                           sh:path  sphn:hasFOPHProcedureRank ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasFOPHProcedureDateTime ], #
+                         [ sh:class sphn:Intent ;
+                           sh:path  sphn:hasIntent ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class chop:CHOP ;
+                           sh:path  sphn:hasFOPHProcedureCode ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ] ;
+    sh:targetClass       sphn:FOPHProcedure .
+
+constraints:sphnFrequency
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasEvents ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasFrequencyUnit ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ] ;
+    sh:targetClass       sphn:Frequency .
+
+constraints:sphnGestationalAgeAtBirth
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasGestationalAgeAtBirthValue ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:minCount 1 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:minCount 1 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:minCount 1 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasGestationalAgeAtBirthUnit ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ] ;
+    sh:targetClass       sphn:GestationalAgeAtBirth .
+
+constraints:sphnHealthcareEncounter
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:AdministrativeCase ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class sphn:TherapeuticArea ;
+                           sh:path  sphn:hasHealthcareEncounterTherapeuticArea ], #
+                         [ sh:class sphn:Location ;
+                           sh:path  sphn:hasHealthcareEncounterOriginLocation ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasIdentifier ], #
+                         [ sh:class sphn:Location ;
+                           sh:path  sphn:hasOriginLocation ], #
+                         [ sh:class sphn:Location ;
+                           sh:path  sphn:hasLocation ], #
+                         [ sh:class sphn:Location ;
+                           sh:path  sphn:hasDestinationLocation ], #
+                         [ sh:class sphn:Location ;
+                           sh:path  sphn:hasHealthcareEncounterCurrentLocation ], #
+                         [ sh:class sphn:Location ;
+                           sh:path  sphn:hasHealthcareEncounterTargetLocation ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasEndDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasHealthcareEncounterStartDateTime ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasStartDateTime ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasHealthcareEncounterEndDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ] ;
+    sh:targetClass       sphn:HealthcareEncounter .
+
+constraints:sphnHeartRate
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:Frequency ;
+                           sh:path  sphn:hasFrequency ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasBodySite ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:or   ( [ sh:class snomed:61086009 ] #
+                                     [ sh:class snomed:261665006 ] #
+                                     [ sh:class snomed:271636001 ] ) ;
+                           sh:path sphn:hasHeartRateRegularityCode ], #
+                         [ sh:class snomed:128973006 ;
+                           sh:path  sphn:hasHeartRatePhysiologicStateCode ], #
+                         [ sh:class sphn:MeasurementMethod ;
+                           sh:path  sphn:hasMeasurementMethod ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ] ;
+    sh:targetClass       sphn:HeartRate .
+
+constraints:sphnICDODiagnosis
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:Code ;
+                           sh:path  sphn:hasICDODiagnosisMorphologyCode ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class sphn:Code ;
+                           sh:path  sphn:hasICDODiagnosisTopographyCode ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ] ;
+    sh:targetClass       sphn:ICDODiagnosis .
+
+constraints:sphnInhaledOxygenConcentration
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:DrugAdministrationEvent ;
+                           sh:path  sphn:hasInhaledOxygenConcentrationDrugAdministrationEvent ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasInhaledOxygenConcentrationValue ], #
+                         [ sh:class sphn:DataDetermination ;
+                           sh:path  sphn:hasInhaledOxygenConcentrationDataDetermination ], #
+                         [ sh:class sphn:MedicalDevice ;
+                           sh:path  sphn:hasInhaledOxygenConcentrationMedicalDevice ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasInhaledOxygenConcentrationUnit ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ] ;
+    sh:targetClass       sphn:InhaledOxygenConcentration .
+
+constraints:sphnIntent
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:or   ( [ sh:class snomed:363675004 ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasIntentCode ] ;
+    sh:targetClass       sphn:Intent .
+
+constraints:sphnLabResult
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasLabResultUnit ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasLabResultNormalRange ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:or   ( [ sh:class loinc:LOINC ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasLabResultLabTestCode ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasLabResultAnalysisDateTime ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasUnstructuredLabResult ], #
+                         [ sh:class sphn:Biosample ;
+                           sh:path  sphn:hasBiosample ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasLabResultValue ] ;
+    sh:targetClass       sphn:LabResult .
+
+constraints:sphnLocation
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasLocationExact ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class sphn:Location_class ;
+                           sh:path  sphn:hasLocationClass ] ;
+    sh:targetClass       sphn:Location .
+
+## @SIB -> weird errors
+#constraints:sphnMeasurement
+#    a              sh:NodeShape ;
+#    sh:and         ( [ sh:property [ sh:hasValue sphn:Measurement ;
+#                                     sh:path     rdf:type ] ] #
+#                     [ sh:or ( [ sh:property [ sh:hasValue sphn:BodyHeight ;
+#                                               sh:path     rdf:type ] ] #
+#                               [ sh:property [ sh:hasValue sphn:RespiratoryRate ;
+#                                               sh:path     rdf:type ] ] #
+#                               [ sh:property [ sh:hasValue sphn:SystemicArterialBloodPressure ;
+#                                               sh:path     rdf:type ] ] #
+#                               [ sh:property [ sh:hasValue sphn:CircumferenceMeasure ;
+#                                               sh:path     rdf:type ] ] #
+#                               [ sh:property [ sh:hasValue sphn:OxygenSaturation ;
+#                                               sh:path     rdf:type ] ] #
+#                               [ sh:property [ sh:hasValue sphn:HeartRate ;
+#                                               sh:path     rdf:type ] ] #
+#                               [ sh:property [ sh:hasValue sphn:BodyTemperature ;
+#                                               sh:path     rdf:type ] ] #
+#                               [ sh:property [ sh:hasValue sphn:BodyWeight ;
+#                                               sh:path     rdf:type ] ] #
+#                               [ sh:property [ sh:hasValue sphn:CentralVenousPressure ;
+#                                               sh:path     rdf:type ] ] ) ] ) ;
+#    sh:closed      false ;
+#    sh:targetClass sphn:Measurement .
+
+constraints:sphnMeasurementMethod
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:or   ( [ sh:class snomed:122869004 ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasMeasurementMethodCode ] ;
+    sh:targetClass       sphn:MeasurementMethod .
+
+constraints:sphnMedicalDevice
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:or   ( [ sh:class snomed:272181003 ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasMedicalDeviceCode ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ] ;
+    sh:targetClass       sphn:MedicalDevice .
+
+constraints:sphnNursingDiagnosis
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:Code ;
+                           sh:path  sphn:hasNursingDiagnosisCode ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ] ;
+    sh:targetClass       sphn:NursingDiagnosis .
+
+constraints:sphnOncologyTreatmentAssessment
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasBodySite ], #
+                         [ sh:class sphn:OncologyTreatmentAssessment_progressionType ;
+                           sh:path  sphn:hasOncologyTreatmentAssessmentProgressionType ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasOncologyTreatmentAssessmentBodySite ], #
+                         [ sh:class sphn:OncologyTreatmentAssessment_result ;
+                           sh:path  sphn:hasOncologyTreatmentAssessmentResult ], #
+                         [ sh:or   ( [ sh:class snomed:71040008 ] #
+                                     [ sh:class snomed:113091000 ] #
+                                     [ sh:class snomed:450436003 ] ) ;
+                           sh:path sphn:hasOncologyTreatmentAssessmentMethodCode ], #
+                         [ sh:class sphn:OncologyTreatmentAssessment_criteria ;
+                           sh:path  sphn:hasOncologyTreatmentAssessmentCriteria ] ;
+    sh:targetClass       sphn:OncologyTreatmentAssessment .
+
+constraints:sphnOxygenSaturation
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasOxygenSaturationUnit ], #
+                         [ sh:class sphn:MeasurementMethod ;
+                           sh:path  sphn:hasMeasurementMethod ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasBodySite ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasOxygenSaturationValue ] ;
+    sh:targetClass       sphn:OxygenSaturation .
+
+constraints:sphnProblemCondition
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasProblemConditionValue ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class sphn:Code ;
+                           sh:path  sphn:hasProblemConditionCode ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasStartDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasProblemConditionDateTime ] ;
+    sh:targetClass       sphn:ProblemCondition .
+
+constraints:sphnRadiotherapyProcedure
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasRadiotherapyProcedureUnit ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasBodySite ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasEndDateTime ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasStartDateTime ], #
+                         [ sh:or   ( [ sh:class snomed:152198000 ] #
+                                     [ sh:class snomed:33195004 ] #
+                                     [ sh:class snomed:74964007 ] #
+                                     [ sh:class snomed:399315003 ] #
+                                     [ sh:class snomed:115959002 ] #
+                                     [ sh:class snomed:168524008 ] #
+                                     [ sh:class snomed:78080008 ] #
+                                     [ sh:class snomed:395096001 ] ) ;
+                           sh:path sphn:hasRadiotherapyProcedureCode ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasRadiotherapyProcedureFractionsNumber ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasRadiotherapyProcedureRadiationAmount ], #
+                         [ sh:class sphn:Intent ;
+                           sh:path  sphn:hasIntent ] ;
+    sh:targetClass       sphn:RadiotherapyProcedure .
+
+constraints:sphnRespiratoryRate
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:class sphn:Frequency ;
+                           sh:path  sphn:hasFrequency ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ] ;
+    sh:targetClass       sphn:RespiratoryRate .
+
+constraints:sphnSimpleScore
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasSimpleScoreValue ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasSimpleScoreScoringSystem ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:or   ( [ sh:class snomed:273481004 ] #
+                                     [ sh:class snomed:273812009 ] #
+                                     [ sh:class snomed:273903006 ] #
+                                     [ sh:class snomed:273617000 ] #
+                                     [ sh:class snomed:279101002 ] #
+                                     [ sh:class snomed:386554004 ] #
+                                     [ sh:class snomed:169909004 ] #
+                                     [ sh:class sphn:Code ] #
+                                     [ sh:class snomed:169922007 ] #
+                                     [ sh:class snomed:169895004 ] #
+                                     [ sh:class snomed:225908003 ] ) ;
+                           sh:path sphn:hasSimpleScoreScoringSystemCode ] ;
+    sh:targetClass       sphn:SimpleScore .
+
+constraints:sphnSubjectPseudoIdentifier
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasIdentifier ] ;
+    sh:targetClass       sphn:SubjectPseudoIdentifier .
+
+constraints:sphnSubstance
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:or   ( [ sh:class snomed:105590001 ] #
+                                     [ sh:class <https://biomedit.ch/rdf/sphn-resource/atc/ATC> ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasSubstanceCode ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasSubstanceGenericName ] ;
+    sh:targetClass       sphn:Substance .
+
+constraints:sphnSubstanceAmount
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasSubstanceAmountUnit ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasSubstanceAmountValue ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ] ;
+    sh:targetClass       sphn:SubstanceAmount .
+
+constraints:sphnSystemicArterialBloodPressure
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeanPressureValue ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasDiastolicPressureValue ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasSystolicPressureValue ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class sphn:BodySite ;
+                           sh:path  sphn:hasBodySite ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:MeasurementMethod ;
+                           sh:path  sphn:hasMeasurementMethod ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasSystemicArterialBloodPressureUnit ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ] ;
+    sh:targetClass       sphn:SystemicArterialBloodPressure .
+
+constraints:sphnTNMClassification
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasTNMClassificationVersion ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasTNMClassificationValue ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasMSuffix ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasTPrefix ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasNPrefix ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasNSuffix ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasTSuffix ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:datatype xsd:string ;
+                           sh:path     sphn:hasMPrefix ] ;
+    sh:targetClass       sphn:TNMClassification .
+
+constraints:sphnTherapeuticArea
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:TherapeuticArea_name ;
+                           sh:path  sphn:hasTherapeuticAreaName ] ;
+    sh:targetClass       sphn:TherapeuticArea .
+
+constraints:sphnTimePattern
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:or   ( [ sh:class snomed:385432009 ] #
+                                     [ sh:class snomed:7087005 ] #
+                                     [ sh:class snomed:255238004 ] ) ;
+                           sh:path sphn:hasTimePatternTypeCode ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ] ;
+    sh:targetClass       sphn:TimePattern .
+
+constraints:sphnTumorGrade
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class sphn:Code ;
+                           sh:path  sphn:hasTumorGradeCode ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ] ;
+    sh:targetClass       sphn:TumorGrade .
+
+constraints:sphnTumorSpecimen
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasTumorSpecimenUnit ], #
+                         [ sh:class sphn:Unit ;
+                           sh:path  sphn:hasUnit ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasTumorSpecimenValue ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:class sphn:Biosample ;
+                           sh:path  sphn:hasBiosample ], #
+                         [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:datatype xsd:double ;
+                           sh:path     sphn:hasMeasuredValue ] ;
+    sh:targetClass       sphn:TumorSpecimen .
+
+constraints:sphnTumorStage
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:class    sphn:DataProviderInstitute ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasDataProviderInstitute ], #
+                         [ sh:class    sphn:AdministrativeCase ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasAdministrativeCase ], #
+                         [ sh:datatype xsd:dateTime ;
+                           sh:path     sphn:hasDateTime ], #
+                         [ sh:class    sphn:SubjectPseudoIdentifier ;
+                           sh:maxCount 1 ;
+                           sh:minCount 0 ;
+                           sh:path     sphn:hasSubjectPseudoIdentifier ], #
+                         [ sh:class sphn:Code ;
+                           sh:path  sphn:hasTumorStageCode ], #
+                         [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ] ;
+    sh:targetClass       sphn:TumorStage .
+
+constraints:sphnUnit
+    a                    sh:NodeShape ;
+    sh:closed            true ;
+    sh:ignoredProperties ( rdf:type frailty:relatesToVariable ) ;
+    sh:property          [ sh:or   ( [ sh:class sphn:Terminology ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasCode ], #
+                         [ sh:or   ( [ sh:class ucum:UCUM ] #
+                                     [ sh:class sphn:Code ] ) ;
+                           sh:path sphn:hasUnitCode ] ;
+    sh:targetClass       sphn:Unit .
+
